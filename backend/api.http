@@ -1,0 +1,113 @@
+### ==========================================
+### 1. LOGIN & GET TOKEN
+### ==========================================
+
+### Login Sebagai Admin (Untuk dapat Token)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin123"
+}
+
+### Login Sebagai Kasir (Untuk dapat Token)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "username": "kasir",
+    "password": "kasir123"
+}
+
+
+### ==========================================
+### 2. USERS CRUD (PROTECTED ROUTES)
+### ==========================================
+### Ganti tulisan MASUKKAN_TOKEN_DISINI dengan token yang didapat dari request Login di atas!
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoiMTcwZmJmMGMtZWE5Ni00NTAyLWEzNGMtOTZmNDFlNzY4ZWViIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzg4NzAxMDI2LCJleHAiOjE3ODg3ODc0MjZ9.Wh4ZevC_XVrTMXFqD8b9zwRyZVbMAU4LI3C8WygSDwA
+
+### GET All Users (Bisa diakses ADMIN dan KASIR)
+GET http://localhost:3000/users
+Authorization: Bearer {{token}}
+
+### POST Create User Baru (HANYA BISA DIAKSES ADMIN)
+POST http://localhost:3000/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "User Baru",
+    "username": "userbaru",
+    "password": "userbaru123",
+    "role": "KASIR"
+}
+
+###
+GET http://localhost:3000/users
+Authorization: Bearer {{token}}
+
+### GET Single User by ID (Bisa diakses ADMIN dan KASIR)
+### Ganti ID-nya dengan ID hasil create/get di atas!
+GET http://localhost:3000/users/e9dd3246-938c-48d3-9620-ca8061324b5c
+Authorization: Bearer {{token}}
+
+### PATCH Update User (HANYA BISA DIAKSES ADMIN)
+### Ganti ID-nya dengan ID yang ingin di-edit
+PATCH http://localhost:3000/users/e9dd3246-938c-48d3-9620-ca8061324b5c
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "User_Update",
+    "username": "user_updated",
+    "role": "KASIR",
+    "password": "userbaru123"
+}
+
+### DELETE User (HANYA BISA DIAKSES ADMIN)
+### Ganti ID-nya dengan ID yang ingin dihapus
+DELETE http://localhost:3000/users/e9dd3246-938c-48d3-9620-ca8061324b5c
+Authorization: Bearer {{token}}
+
+### ==========================================
+### 3. PRODUCTS CRUD (PROTECTED ROUTES)
+### ==========================================
+
+### GET All Products (Bisa diakses ADMIN dan KASIR)
+GET http://localhost:3000/products
+Authorization: Bearer {{token}}
+
+### POST Create Product Baru (HANYA BISA DIAKSES ADMIN)
+POST http://localhost:3000/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Kopi Susu",
+    "price": 18000,
+    "stock": 50
+}
+
+### GET Single Product by ID (Bisa diakses ADMIN dan KASIR)
+### Ganti ID-nya dengan ID hasil create/get di atas!
+GET http://localhost:3000/products/6ae94ed8-674f-4707-9f79-891cba43ca1d
+Authorization: Bearer {{token}}
+
+### PATCH Update Product (HANYA BISA DIAKSES ADMIN)
+### Ganti ID-nya dengan ID yang ingin di-edit
+PATCH http://localhost:3000/products/6ae94ed8-674f-4707-9f79-891cba43ca1d
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Kopi Susu Aren",
+    "price": 20000,
+    "stock": 45
+}
+
+### DELETE Product (HANYA BISA DIAKSES ADMIN)
+### Ganti ID-nya dengan ID yang ingin dihapus
+DELETE http://localhost:3000/products/6ae94ed8-674f-4707-9f79-891cba43ca1d
+Authorization: Bearer {{token}}
