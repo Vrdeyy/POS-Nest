@@ -26,7 +26,7 @@ Content-Type: application/json
 ### ==========================================
 ### Ganti tulisan MASUKKAN_TOKEN_DISINI dengan token yang didapat dari request Login di atas!
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoiMTcwZmJmMGMtZWE5Ni00NTAyLWEzNGMtOTZmNDFlNzY4ZWViIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzg4NzAxMDI2LCJleHAiOjE3ODg3ODc0MjZ9.Wh4ZevC_XVrTMXFqD8b9zwRyZVbMAU4LI3C8WygSDwA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoiMTcwZmJmMGMtZWE5Ni00NTAyLWEzNGMtOTZmNDFlNzY4ZWViIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzg5MTUxMDEyLCJleHAiOjE3ODkyMzc0MTJ9.WJC247WZZGB08pxvelGb8RCFoTQXRILcWz1_YqXG29o
 
 ### GET All Users (Bisa diakses ADMIN dan KASIR)
 GET http://localhost:3000/users
@@ -110,4 +110,33 @@ Content-Type: application/json
 ### DELETE Product (HANYA BISA DIAKSES ADMIN)
 ### Ganti ID-nya dengan ID yang ingin dihapus
 DELETE http://localhost:3000/products/6ae94ed8-674f-4707-9f79-891cba43ca1d
+Authorization: Bearer {{token}}
+
+### ==========================================
+### 4. TRANSACTIONS (PROTECTED ROUTES)
+### ==========================================
+
+### Note:
+### 1. Buat POST /transactions, pake Token KASIR (Role Kasir Only).
+### 2. Ganti token_kasir dengan token JWT kasir hasil login.
+### 3. Ganti productId dengan ID produk asli yang ada di DB lu.
+
+@token_kasir = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imthc2lyIiwic3ViIjoiYjRhMzIxYmItNmIwOS00NDg4LWI2NzEtZWVlYWY1MjhiNjE0Iiwicm9sZSI6IktBU0lSIiwiaWF0IjoxNzg5MTUwOTQwLCJleHAiOjE3ODkyMzczNDB9.9_EI7ngGTTFBC_d23efR6DFYr8WsKVk4U1zqvBWDbGg
+
+### POST Checkout Transaksi Baru (HANYA BISA DIAKSES KASIR)
+POST http://localhost:3000/transactions
+Authorization: Bearer {{token_kasir}}
+Content-Type: application/json
+
+{
+    "items": [
+        {
+            "productId": "d6876ab4-aa78-449d-946a-9f428b452284",
+            "quantity": 2
+        }
+    ]
+}
+
+### GET All Transactions / Riwayat (Bisa diakses ADMIN & KASIR)
+GET http://localhost:3000/transactions
 Authorization: Bearer {{token}}
