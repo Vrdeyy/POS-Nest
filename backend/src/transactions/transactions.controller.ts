@@ -14,9 +14,7 @@ export class TransactionsController {
   @Post()
   @Roles('KASIR')
   async create(@Req() req: any, @Body() dto: CreateTransactionDto) {
-    console.log('--- ISI REQ.USER ---', req.user);
     const userId = req.user?.userId || req.user?.sub || req.user?.id;
-
     return this.transactionsService.create(userId, dto);
   }
 
